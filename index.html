@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlickFinder</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #121212; color: #f0f0f0; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: 90%; max-width: 1200px; margin: auto; }
+
+    header { background: #1e1e1e; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+    header nav a { margin: 0 15px; font-weight: bold; color: #0f9; }
+
+    .hero { position: relative; height: 400px; background: url('https://via.placeholder.com/1200x400') center/cover no-repeat; display: flex; justify-content: center; align-items: center; text-align: center; color: #fff; }
+    .hero .content { background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; }
+
+    .section-title { text-align: center; margin: 50px 0 20px; font-size: 2rem; color: #0f9; }
+
+    .filters, .search-bar { text-align: center; margin: 20px 0; }
+    .filters button, .search-bar input { margin: 5px; padding: 10px 15px; border: none; border-radius: 5px; }
+    .filters button { background: #0f9; color: #000; cursor: pointer; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin: 30px 0; }
+    .card { background: #2c2c2c; border-radius: 10px; overflow: hidden; text-align: center; }
+    .card img { width: 100%; height: 250px; object-fit: cover; }
+    .card h3 { padding: 10px; }
+
+    .pagination { text-align: center; margin: 30px 0; }
+    .pagination button { margin: 0 5px; padding: 8px 12px; border: none; background: #0f9; color: #000; border-radius: 5px; cursor: pointer; }
+
+    .faq { background: #1a1a1a; padding: 40px 20px; }
+    .faq-item { margin-bottom: 10px; background: #2b2b2b; border-radius: 5px; overflow: hidden; }
+    .faq-item summary { padding: 15px; cursor: pointer; font-weight: bold; }
+    .faq-item p { padding: 0 15px 15px; }
+
+    footer { background: #1e1e1e; padding: 40px 20px; color: #aaa; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+    .footer-grid h4 { color: #0f9; margin-bottom: 10px; }
+    .newsletter input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+    .newsletter button { background: #0f9; padding: 10px; width: 100%; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+
+  <header class="container">
+    <div><strong style="color:#0f9">FlickFinder</strong></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Tv Show</a>
+      <a href="#">Movie</a>
+      <a href="#">Upcoming</a>
+      <button style="background:#0f9; color:#000; padding:8px 16px; border-radius:5px;">Favorite ❤️</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="content">
+      <h1>Bringing the Big Screen to Your Screen</h1>
+      <p>Discover, critique, and celebrate movies with honest reviews and fresh takes.</p>
+      <button style="margin-top:10px; padding:10px 20px; background:#0f9; color:#000; border:none; border-radius:5px;">Discover More..</button>
+    </div>
+  </section>
+
+  <div class="container">
+    <h2 class="section-title">MOVIE LIST</h2>
+
+    <div class="filters">
+      <button onclick="fetchMovies('Thriller')">Marvel Movie</button>
+      <button onclick="fetchMovies('Comedy')">Funny Movie</button>
+      <button onclick="fetchMovies('Animation')">Animation Movie</button>
+      <button onclick="fetchMovies('Web Series')">Web Series</button>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search here…">
+      <button onclick="handleSearch()">Search</button>
+    </div>
+
+    <div class="cards" id="movieCards"></div>
+
+    <div class="pagination">
+      <button onclick="fetchMovies('Avengers')">1</button>
+      <button onclick="fetchMovies('Batman')">2</button>
+      <button onclick="fetchMovies('Spider-Man')">3</button>
+    </div>
+  </div>
+
+  <section class="faq">
+    <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
+    <details class="faq-item">
+      <summary>1. What is this website about?</summary>
+      <p>This website provides in‑depth reviews and ratings of movies from different genres.</p>
+    </details>
+    <details class="faq-item">
+      <summary>2. How are movies rated?</summary>
+      <p>Ratings are based on user and critic reviews, algorithmic analysis, and more.</p>
+    </details>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h4>FlickFinder</h4>
+        <p><a href="#">Home</a></p>
+        <p><a href="#">About us</a></p>
+        <p><a href="#">Contact us</a></p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <p><a href="#">TV Show</a></p>
+        <p><a href="#">Web Series</a></p>
+        <p><a href="#">Hollywood</a></p>
+        <p><a href="#">Bollywood</a></p>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <p><a href="#">FAQs</a></p>
+        <p><a href="#">Search Movie</a></p>
+      </div>
+      <div class="newsletter">
+        <h4>Newsletter</h4>
+        <input type="email" placeholder="mail@pagedone.com">
+        <label><input type="checkbox"> I agree with Privacy Policy and Terms</label>
+        <button>Send</button>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:20px;">© FlickFinder 2024. All rights reserved. Developed by Shubham Mishra</p>
+  </footer>
+
+  <script>
+    const API_KEY = '3f72d8db';
+
+    async function fetchMovies(query) {
+      const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      const movieCards = document.getElementById('movieCards');
+      movieCards.innerHTML = '';
+
+      if (data.Response === 'True') {
+        data.Search.forEach(movie => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/180x250'}" alt="${movie.Title}">
+            <h3>${movie.Title}</h3>
+          `;
+          movieCards.appendChild(card);
+        });
+      } else {
+        movieCards.innerHTML = `<p style="text-align:center;">No movies found.</p>`;
+      }
+    }
+
+    function handleSearch() {
+      const input = document.getElementById('searchInput');
+      const query = input.value.trim();
+      if (query) fetchMovies(query);
+    }
+
+    fetchMovies('Avengers');
+  </script>
+
+</body>
+</html>
